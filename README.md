@@ -8,7 +8,14 @@ git clone https://github.com/Yamiyorunoshura/project-part-A.git
 cd project-part-A
 ```
 
+# Install uv
+```
+pip install uv
+```
+
 # Run the code
 ```
-python -m main.py
+uv run main.py
+```
+
 
