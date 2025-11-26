@@ -50,10 +50,10 @@ nvda_daily_return = nvda.calculate_returns()
 
 ## Calculate cumulative returns
 def calculate_cumulative_returns(daily_returns):
-    cumulative = [1.0]  # Start with 100%
+    cumulative = [1.0]  # Start with 100% (0% cumulative return)
     for ret in daily_returns:
         cumulative.append(cumulative[-1] * (1 + ret))
-    return cumulative[1:]  # Remove the initial 1.0 to match data length
+    return cumulative  # Keep the initial 1.0 to include starting point
 
 
 snp500_cumulative = calculate_cumulative_returns(snp500_daily_return)
@@ -63,8 +63,8 @@ nvda_cumulative = calculate_cumulative_returns(nvda_daily_return)
 ## Create line plots for cumulative returns
 plt.figure(figsize=(12, 8))
 
-## Get the dates (exclude the first date since we have one less return than price data)
-dates = snp500.close_prices.index[1:]
+## Get all dates (include starting date for cumulative return baseline)
+dates = snp500.close_prices.index
 
 ## Plot cumulative returns for each stock (convert to percentage)
 plt.plot(dates, [(x-1)*100 for x in snp500_cumulative], label="S&P 500 (^GSPC)", alpha=0.8, linewidth=2)
